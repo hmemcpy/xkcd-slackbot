@@ -53,6 +53,8 @@ Clone this project, and open it with Visual Studio. This is a Nancy web applicat
 
 ![](http://i.imgur.com/FvBGwLo.png)
 
-Finally, copy the URL of your Azure application, and paste it into the **Slash Command** page from above, in the **URL** field.
+Finally, copy the URL of your Azure application, and paste it into the **Slash Command** page from above, in the **URL** field, and make sure the selected method is **POST**. The full URL should be e.g.:
+
+    http://my-xkcd-slack-bot.azurewebsites.net/xkcd
 
 Add in some additional descriptions and usage hints for the command, customize the icon and name of the incoming webhook, and you're all set!
