@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Google.Apis.Customsearch.v1;
 using Nancy;
 using Nancy.ModelBinding;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace XkcdSlackbot
 {
@@ -15,6 +17,7 @@ namespace XkcdSlackbot
         public string Command { get; set; }
         public string Text { get; set; }
         public string Channel_Name { get; set; }
+        public string User_Name { get; set; }
     }
 
     public class XkcdModule : NancyModule
@@ -43,8 +46,9 @@ namespace XkcdSlackbot
 
                 var data = new
                 {
-                    channel = "#" + request.Channel_Name,
                     text = xkcdUrl,
+                    channel = request.Channel_Name == "directmessage" ? "@" + request.User_Name
+                                                                      : "#" + request.Channel_Name,
                     unfurl_links = true
                 };
 
