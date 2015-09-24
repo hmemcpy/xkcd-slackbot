@@ -29,15 +29,22 @@ namespace XkcdSlackbot
 
                 if (request.Command != "/xkcd") return 400;
 
-                int result;
-                var url = int.TryParse(request.Text, out result) ? $"https://xkcd.com/{result}" : await SearchGoogle(request.Text);
+                string xkcdUrl;
 
-                if (string.IsNullOrEmpty(url)) return 404;
+                if (string.IsNullOrWhiteSpace(request.Text))
+                {
+                    xkcdUrl = await GetRandomComic();
+                }
+                else
+                {
+                    int result;
+                    xkcdUrl = int.TryParse(request.Text, out result) ? $"https://xkcd.com/{result}/" : await SearchGoogle(request.Text);
+                }
 
                 var data = new
                 {
-                    text = url,
                     channel = "#" + request.Channel_Name,
+                    text = xkcdUrl,
                     unfurl_links = true
                 };
 
@@ -48,6 +55,20 @@ namespace XkcdSlackbot
 
                 return 200;
             };
+        }
+
+        private static async Task<string> GetRandomComic()
+        {
+            int latestComic;
+            using (var wc = new WebClient())
+            {
+                var data = await wc.DownloadStringTaskAsync("https://xkcd.com/info.0.json");
+                dynamic result = JObject.Parse(data);
+                latestComic = result.num;
+            }
+
+            int random = new Random().Next(1, latestComic + 1);
+            return $"https://xkcd.com/{random}/";
         }
 
         private static async Task<string> SearchGoogle(string query)
