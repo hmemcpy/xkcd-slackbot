@@ -60,7 +60,7 @@ namespace XkcdSlackbot
                 listRequest.Cx = searchEngineId;
                 var search = await listRequest.ExecuteAsync();
 
-                return search.Items?.First().FormattedUrl;
+                return search.Items?.First().Link;
             }
         }
     }
