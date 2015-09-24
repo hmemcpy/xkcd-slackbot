@@ -1,6 +1,6 @@
 # /xkcd for Slack
 
-A slash command for [Slack](https://slack.com/) that displays an [xkcd](https://xkcd.com) comic in the channel, either by comic number (e.g. `/xkcd 702`) or its description (e.g. `/xkcd battery horse`).
+A slash command for [Slack](https://slack.com/) that displays an [xkcd](https://xkcd.com) comic in the channel, either by comic number (e.g. `/xkcd 702`) , description (e.g. `/xkcd battery horse`) or a getting a random comic by simply typing `/xkcd`.
 
 ![](http://i.imgur.com/YckTtFO.gif)
 
